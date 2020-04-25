@@ -8,7 +8,7 @@ export function addTodo(task) {
   }
 }
 
-export function remove_Todo(id) {
+export function removeTodo(id) {
   return {
     type: REMOVE_TODO,
     id

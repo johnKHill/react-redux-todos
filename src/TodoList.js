@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Todo from "./Todo";
 import { connect } from "react-redux";
+import { addTodo, removeTodo } from "./actionCreators"
 
 class TodoList extends Component {
   constructor(props) {
@@ -15,10 +16,7 @@ class TodoList extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.dispatch({
-      type: "ADD_TODO",
-      task: this.state.task // Get what's submitted in the form
-    });
+    this.props.addTodo(this.state.task);
     e.target.reset(); // Reset the form values
   }
 
@@ -29,10 +27,7 @@ class TodoList extends Component {
   }
 
   removeTodo(id) {
-    this.props.dispatch({
-      type: "REMOVE_TODO",
-      id
-    });
+    this.props.removeTodo(id);
   }
 
   render() {
@@ -74,5 +69,9 @@ function mapStateToProps(reduxState) {
   }
 }
 
+
 // Connecting the TodoList component to the redux store for reduxState
-export default connect(mapStateToProps)(TodoList);
+// The second param is an object like the mapDispatchToProps method.
+// They are simply imported actionCreator fns acting as keys but returning
+// an object with a specific "type" key and value as the dispatched action.
+export default connect(mapStateToProps, { addTodo, removeTodo })(TodoList);
