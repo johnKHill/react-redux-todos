@@ -1,14 +1,25 @@
-import React from 'react';
-import TodoList from "./TodoList";
+import React, { Component } from 'react';
 import './App.css';
+import TodoList from "./TodoList";
+import { Link, Route, Redirect } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-    <h1>See our Todos!</h1>
-    <TodoList />
-    </div>
-  );
+class App extends Component {
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Welcome to the App!</h1>
+        <p>
+          <Link to="/todos">See my todos!</Link>
+        </p>
+        <p>
+          <Link to="/todos/new">Add a todos!</Link>
+        </p>
+        <Route path="/todos" component={TodoList} />
+        <Route exact path="/" render={() => <Redirect to="/todos" />} />
+      </div>
+    );
+  }
 }
 
 export default App;
